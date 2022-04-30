@@ -1,6 +1,7 @@
 import socket
 import asyncio
 import json
+from IA import IA
 import sys
 port=int(sys.argv[1])
 Addressplayer = ('0.0.0.0', port)
@@ -21,7 +22,8 @@ async def listen():
                         message='{"response": "pong"}'
                         client.send(message.encode())
                     elif requete["request"]=='play':
-                        None
-                        #IA A FAIRE
+                        answer=IA(requete['state'])
+                        indice={"response": "move",  "move":answer,   "message": "Fun message"}
+                        client.send(json.dumps(indice).encode())
             except socket.timeout:
                 pass
