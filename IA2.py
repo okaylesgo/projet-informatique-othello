@@ -2,6 +2,7 @@ from game import possibleMoves
 from game import isGameOver
 import gameerror
 import game
+from IA import IA
 def Othello(players):
 	# 00 01 02 03 04 05 06 07
 	# 08 09 10 11 12 13 14 15
@@ -140,7 +141,10 @@ def timeit(fun):
 def IA2(state):
 	player = state['current']
 	_, move = negamaxWithPruningIterativeDeepening(state, player)
-	return move
+	if move is not None:
+		return move
+	else:
+		IA(state)
 state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35],[27, 36,37,38]]}
 init,next=Othello(['monsieurH','MADAMEF'])
 print(IA2(state))
