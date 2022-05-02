@@ -72,24 +72,47 @@ def heuristic(state,player):
 	res=0
 	LISTCOIN=[0,7,56,63]
 	LISTBORDS=[1,2,3,4,5,6,8,15,16,23,24,31,32,39,40,47,48,55,56,57,58,59,60,61,62,63]	
+	LISTECENTRE=[27,28,35,36]
 	for el in LISTCOIN:
 		if el in state['board'][player]:
-			res+=3
+			res+=10
 		elif el in state['board'][player2]:
-			res-=3
-	for el in LISTBORDS:
-		if el in state['board'][player]:
-			res+=1
-		elif el in state['board'][player2]:
-			res-=1
-	res=res-len(game.possibleMoves({"players": ["h", "f"],"current": player2,"board": state['board']}))
-	res=res+len(game.possibleMoves({"players": ["h", "f"],"current": player,"board": state['board']}))
-	
-	return res
-
+			res-=10
+	res=res-0.3*len(game.possibleMoves({"players": ["h", "f"],"current": player2,"board": state['board']}))
+	res=res+0.3*len(game.possibleMoves(state))
+	nombrepions=len(state['board'][player])+len(state['board'][player2])
+	if nombrepions<32:
+		if el in LISTECENTRE:
+			res+=5
+		DELTAPION=len(state['board'][player2])-len(state['board'][player])
+		res=res+DELTAPION/5
+	if nombrepions>32:
+		for el in LISTBORDS:
+			if el in state['board'][player]:
+				res+=1
+			elif el in state['board'][player2]:
+				res-=1
+			coord=game.coord(el)
+			x,y=coord
+			lelemnext=[]
+			for el2 in LISTBORDS:
+				if (el,el2) not in lelemnext or (el2,el) not in lelemnext: 
+					for i in [-1,0,1]:
+						if game.coord(el2) ==(x+i,y+i) :
+							if el in state['board'][player] and el2 in state['board'][player] :
+								res+=0.5
+								lelemnext.append((el,el2))
+								lelemnext.append((el2,el))
+							elif el in state['board'][player2] and el2 in state['board'][player2]:
+								res-=0.5
+								lelemnext.append((el2,el))
+		res=res-0.2*len(state['board'][player2])
+		res=res+0.2*len(state['board'][player2])		
+	return res			
 from collections import defaultdict
 init,next=Othello(['h','m'])
-def negamaxWithPruningIterativeDeepening(state, player, timeout=0.2):
+def negamaxWithPruningIterativeDeepening(state, player, timeout=0.3):
+	global start
 	cache = defaultdict(lambda : 0)
 	def cachedNegamaxWithPruningLimitedDepth(state, player, depth, alpha=float('-inf'), beta=float('inf')):
 		over = isGameOver(state)
@@ -110,7 +133,7 @@ def negamaxWithPruningIterativeDeepening(state, player, timeout=0.2):
 				if alpha >= beta:
 					break
 			res = -theValue, theMove, theOver
-			print(theMove)
+
 		cache[tuple(state)] = res[0]
 		return res
 
@@ -118,13 +141,15 @@ def negamaxWithPruningIterativeDeepening(state, player, timeout=0.2):
 	depth = 1
 	start = time.time()
 	over = False
-	while value > -10000 and time.time() - start < timeout and not over:
+	
+	while value > -10000 and (time.time() - start) < timeout and not over:
 		value, move, over = cachedNegamaxWithPruningLimitedDepth(state, player, depth)
 		depth += 1
-		print(move)
+
+
 
 	print('depth =', depth)
-	return value, move
+	return value, move	
 
 
 
@@ -140,8 +165,7 @@ def timeit(fun):
 def IA2(state):
 	player = state['current']
 	_, move = negamaxWithPruningIterativeDeepening(state, player)
-	print(move)
-if 	__name__=="__main__":
-	state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35],[27, 36,37,38]]}
-	init,next=Othello(['monsieurH','MADAMEF'])
-	print(IA2(state))
+	return move
+#state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35],[27, 36,37,38]]}
+#init,next=Othello(['monsieurH','MADAMEF'])
+#print(IA2(state))
