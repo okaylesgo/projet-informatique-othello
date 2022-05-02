@@ -145,6 +145,7 @@ def IA2(state):
 		return move
 	else:
 		IA(state)
-state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35],[27, 36,37,38]]}
-init,next=Othello(['monsieurH','MADAMEF'])
-print(IA2(state))
+if 	__name__=="__main__":
+	state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35],[27, 36,37,38]]}
+	init,next=Othello(['monsieurH','MADAMEF'])
+	print(IA2(state))
