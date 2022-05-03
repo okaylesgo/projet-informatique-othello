@@ -2,6 +2,9 @@ import pytest
 import gameerror
 import IA
 import game
+import lancement
+import inscription
+import IA2
 def test_IA():
     init,next=game.Othello(['f','h'])
     state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35,29,30],[27, 36,37,38]]}
@@ -36,5 +39,16 @@ def test_game():
     for i in range(64):
         l4.append(i)
     state3={"layers": ["LUR", "LRG"],"current": 0,"board": [l3,[62]]}
+    state4={"layers": ["LUR", "LRG"],"current": 0,"board": [l4,[]]}
     with pytest.raises(gameerror.GameWin):
         raise next(state3,63)
+    end=gameerror.GameEnd(state4)
+    print(end.state)
+    print(end)
+    winner=gameerror.GameWin(0,state4)
+    print(winner)
+    print(winner.winner)
+    egalité=gameerror.GameDraw(state2)
+    print(egalité)
+    loop=gameerror.GameLoop(egalité)
+    print(loop)

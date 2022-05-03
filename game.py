@@ -144,9 +144,3 @@ def Othello(players):
 
 Game = Othello
 
-if __name__ == '__main__':
-    state, next = Game(['LUR', 'HSL'])
-
-    move = 26
-
-    print(next(state, move))
