@@ -15,4 +15,4 @@ def test_IA():
 def test_game():
     state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35,29,30],[27, 36,37,38]]}
     with pytest.raises(gameerror.BadMove):
-        raise game.willBeTaken(state,0)
+        raise game.willBeTaken(state,94)
