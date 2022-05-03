@@ -4,6 +4,7 @@ import IA
 import game
 import IA2
 import lancement
+import message
 state1={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35,29,30],[27, 36,37,38]]}
 l1=[]
 l2=[]
@@ -53,3 +54,16 @@ def test_IA2():
     assert IA2.IA2(state1) in game.possibleMoves(state1)
     with pytest.raises(gameerror.BadMove):
         raise IA2.next(state1,None)
+import message
+def test_message():
+    state1={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35,29,30],[27, 36,37,38]]}
+    state2={"players": ["LUR", "LRG"],"current": 0,"board": [l1,l2]}
+    state3={"players": ["LUR", "LRG"],"current": 1,"board": [l3,[62]]}
+    state4={"players": ["LUR", "LRG"],"current": 0,"board": [[12,13,14,28,34,35,35,29,30,31],[27, 36,37,38]]}
+    state5={"players": ["LUR", "LRG"],"current": 0,"board": [[12,13,14,28,34],[27, 36,37,38,13,14,28,34,13,14,28,34]]}
+    assert message.quelmessagejenvoie(state1)=='Toute facon je suis le meilleur'
+    assert message.quelmessagejenvoie(state2)=='CEST TOUT CE QUE TU AS'
+    assert message.quelmessagejenvoie(state3)=='haha mon reuf ^^ jrigolais tu peux te calmer?'
+
+    assert message.quelmessagejenvoie(state5)== 'katchaw'
+   

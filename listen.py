@@ -4,7 +4,7 @@ import json
 from IA import IA
 from IA2 import IA2
 import sys
-from scipy import rand
+from message import quelmessagejenvoie
 with open('inscription.json') as mon_fichier:
     d=json.load(mon_fichier)
     port=d['port']
@@ -29,7 +29,8 @@ async def listen():
                         answer=IA2(requete['state'])
                         if answer is  None:
                             answer=IA(requete['state'])
-                        indice={"response": "move",  "move":answer,   "message": "Fun message"}
+                        message=quelmessagejenvoie(requete['state'])
+                        indice={"response": "move",  "move":answer,   "message": message}
                         client.send(json.dumps(indice).encode())
             except socket.timeout:
                 pass
