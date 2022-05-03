@@ -2,8 +2,6 @@ import pytest
 import gameerror
 import IA
 import game
-import lancement
-import inscription
 import IA2
 def test_IA():
     init,next=game.Othello(['f','h'])
