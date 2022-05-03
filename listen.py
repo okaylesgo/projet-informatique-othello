@@ -9,7 +9,7 @@ with open('inscription.json') as mon_fichier:
     d=json.load(mon_fichier)
     port=d['port']
 Addressplayer = ('0.0.0.0', port)
-serveraddress=('localhost',3000)
+serveraddress=('172.17.10.33',3000)
 async def listen(): 
     with socket.socket() as s:
         s.settimeout(0.1)
