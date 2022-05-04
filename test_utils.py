@@ -69,7 +69,7 @@ def test_IA2():
     assert IA2.IA2(state5) in game.possibleMoves(state5)
     assert IA2.IA2(state6) ==None
     state7={"players": ["LUR", "LRG"],"current": 0,"board": [[35],[27,28,21,14]]}
-    assert IA2.IA2(state7) ==7
+    assert IA2.IA2(state7) ==7 or IA2.IA2(state7)==19
     state8={"players": ["LUR", "LRG"],"current": 1,"board": [[0,1,2,3,4,5,6,7,50,51,52,53,54,55,0,8,16,1,9,17,25,33,41,49,24,32,7,47,28,35],[27,36,15,23,31,39]]}
     assert IA2.heuristic(state8)
     
