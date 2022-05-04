@@ -14,7 +14,7 @@ except:
 with open('inscription.json', 'w') as mon_fichier:
     json.dump({'port':port}, mon_fichier)
 Addressplayer = ('0.0.0.0', port)
-serveraddress=('172.17.10.33',3000)
+serveraddress=('localhost',3000)
 print(Addressplayer)
 def inscription():
         print('test')

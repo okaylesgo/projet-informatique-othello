@@ -5,11 +5,11 @@ def quelmessagejenvoie(state):
     elif player==1:
         player2=0
     if len(state['board'][player])+len(state['board'][player2])<10:
-        return 'Toute facon je suis le meilleur'
+        return 'Toute facon je suis le meilleur '
     elif len(state['board'][player])+len(state['board'][player2])>=10:
         if len(state['board'][player2])-len(state['board'][player])>10:
-            return 'haha mon reuf ^^ jrigolais tu peux te calmer?'
+            return 'haha mon reuf ^^ jrigolais tu peux te calmer? '
         elif len(state['board'][player2])-len(state['board'][player])<5:
-            return 'CEST TOUT CE QUE TU AS'
+            return "CEST TOUT CE QUE TU AS"
         else:
-            return 'katchaw'
+            return '8morts,6blessés je pète ma bière:MA LUBULULLE)'

@@ -2,6 +2,7 @@ from game import possibleMoves
 from game import isGameOver
 import gameerror
 import game
+import threading
 def Othello(players):
 	# 00 01 02 03 04 05 06 07
 	# 08 09 10 11 12 13 14 15
@@ -111,47 +112,59 @@ def heuristic(state,player):
 	return res			
 from collections import defaultdict
 init,next=Othello(['h','m'])
-def negamaxWithPruningIterativeDeepening(state, player, timeout=0.3):
+def negamaxWithPruningIterativeDeepening(state, player, timeout=9.0):
 	global start
+	
 	cache = defaultdict(lambda : 0)
-	def cachedNegamaxWithPruningLimitedDepth(state, player, depth, alpha=float('-inf'), beta=float('inf')):
-		over = isGameOver(state)
-		if over or depth == 0:
-			res = -heuristic(state, player), None, over
-		
+	def cachedNegamaxWithPruningLimitedDepth(state, player, depth, alpha=float('-inf'), beta=float('inf')):	
+			over = isGameOver(state)
+			if over or depth == 0:
+				res = -heuristic(state, player), None, over
+			else:
+				theValue, theMove, theOver = float('-inf'), None, True
+				possibilities = [(move, next(state, move)) for move in possibleMoves(state)]
+				possibilities.sort(key=lambda poss: cache[tuple(poss[1])])
+				for move, successor in reversed(possibilities):
+						value, _, over = cachedNegamaxWithPruningLimitedDepth(successor, player%2+1, depth-1, -beta, -alpha)
+						theOver = theOver and over
+						if value > theValue:
+							theValue, theMove = value, move
+						alpha = max(alpha, theValue)
+						if alpha >= beta:
+							break
+				res = -theValue, theMove, theOver
 
-		else:
-			theValue, theMove, theOver = float('-inf'), None, True
-			possibilities = [(move, next(state, move)) for move in possibleMoves(state)]
-			possibilities.sort(key=lambda poss: cache[tuple(poss[1])])
-			for move, successor in reversed(possibilities):
-				value, _, over = cachedNegamaxWithPruningLimitedDepth(successor, player%2+1, depth-1, -beta, -alpha)
-				theOver = theOver and over
-				if value > theValue:
-					theValue, theMove = value, move
-				alpha = max(alpha, theValue)
-				if alpha >= beta:
-					break
-			res = -theValue, theMove, theOver
+			cache[tuple(state)] = res[0]
+			return res
 
-		cache[tuple(state)] = res[0]
-		return res
-
-	value, move = 0, None
+	value,  move = 0, None
 	depth = 1
 	start = time.time()
 	over = False
-	
-	while value > -10000 and (time.time() - start) < timeout and not over:
+	def not10sec(state):
+		nonlocal value
+		nonlocal move
+		nonlocal over
+		nonlocal depth
+		nonlocal player
+		nonlocal timeout
 		value, move, over = cachedNegamaxWithPruningLimitedDepth(state, player, depth)
 		depth += 1
+		if depth>64:
+			timeout=0
+		print('depth =', depth)
+	A=True
+	def cached():
+		nonlocal A
+		while A==True:
+			not10sec(state)
 
-
-
-	print('depth =', depth)
+	
+	threading.Thread(target=cached,args=()).start()
+	while time.time() - start<timeout :
+		None
+	A=False
 	return value, move	
-
-
 
 def timeit(fun):
 	def wrapper(*args, **kwargs):
@@ -166,6 +179,3 @@ def IA2(state):
 	player = state['current']
 	_, move = negamaxWithPruningIterativeDeepening(state, player)
 	return move
-#state={"players": ["LUR", "LRG"],"current": 0,"board": [[28, 35],[27, 36,37,38]]}
-#init,next=Othello(['monsieurH','MADAMEF'])
-#print(IA2(state))
