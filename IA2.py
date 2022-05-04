@@ -50,14 +50,14 @@ import copy
 def winner(state):
 	playerIndex = state['current']
 	otherIndex = (playerIndex+1)%2
-	winner=0
+	winner=None
 	if len(state['board'][playerIndex]) > len(state['board'][otherIndex]):
-		winner = 1
+		winner = playerIndex
 	elif len(state['board'][playerIndex]) < len(state['board'][otherIndex]):
-		winner = -1
+		winner = otherIndex
 	return winner
 
-def heuristic(state,player):
+def heuristic(state,player=None):
 	player=state['current']
 	if player==0:
 		player2=1
@@ -83,28 +83,29 @@ def heuristic(state,player):
 	res=res+0.3*len(game.possibleMoves(state))
 	nombrepions=len(state['board'][player])+len(state['board'][player2])
 	if nombrepions<32:
-		if el in LISTECENTRE:
-			res+=5
+		for elem in LISTECENTRE:
+			if elem in state['board'][player]:
+				res+=5
 		DELTAPION=len(state['board'][player2])-len(state['board'][player])
 		res=res+DELTAPION/5
 	if nombrepions>32:
-		for el in LISTBORDS:
-			if el in state['board'][player]:
+		for elmt in LISTBORDS:
+			if elmt in state['board'][player]:
 				res+=1
-			elif el in state['board'][player2]:
+			elif elmt in state['board'][player2]:
 				res-=1
-			coord=game.coord(el)
+			coord=game.coord(elmt)
 			x,y=coord
 			lelemnext=[]
 			for el2 in LISTBORDS:
-				if (el,el2) not in lelemnext or (el2,el) not in lelemnext: 
+				if (elmt,el2) not in lelemnext or (el2,elmt) not in lelemnext: 
 					for i in [-1,0,1]:
 						if game.coord(el2) ==(x+i,y+i) :
-							if el in state['board'][player] and el2 in state['board'][player] :
+							if elmt in state['board'][player] and el2 in state['board'][player] :
 								res+=0.5
 								lelemnext.append((el,el2))
 								lelemnext.append((el2,el))
-							elif el in state['board'][player2] and el2 in state['board'][player2]:
+							elif elmt in state['board'][player2] and el2 in state['board'][player2]:
 								res-=0.5
 								lelemnext.append((el2,el))
 		res=res-0.2*len(state['board'][player2])
@@ -133,10 +134,8 @@ def negamaxWithPruningIterativeDeepening(state, player, timeout=9.0):
 						if alpha >= beta:
 							break
 				res = -theValue, theMove, theOver
-
 			cache[tuple(state)] = res[0]
 			return res
-
 	value,  move = 0, None
 	depth = 1
 	start = time.time()
