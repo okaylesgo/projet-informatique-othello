@@ -113,9 +113,9 @@ def heuristic(state,player=None):
 	return res			
 from collections import defaultdict
 init,next=Othello(['h','m'])
-def negamaxWithPruningIterativeDeepening(state, player, timeout=9.0):
+def negamaxWithPruningIterativeDeepening(state, player, timeout=8.0):
 	global start
-	
+	start = time.time()
 	cache = defaultdict(lambda : 0)
 	def cachedNegamaxWithPruningLimitedDepth(state, player, depth, alpha=float('-inf'), beta=float('inf')):	
 			over = isGameOver(state)
@@ -138,7 +138,6 @@ def negamaxWithPruningIterativeDeepening(state, player, timeout=9.0):
 			return res
 	value,  move = 0, None
 	depth = 1
-	start = time.time()
 	over = False
 	def not10sec(state):
 		nonlocal value
@@ -157,9 +156,8 @@ def negamaxWithPruningIterativeDeepening(state, player, timeout=9.0):
 		nonlocal A
 		while A==True:
 			not10sec(state)
-
-	
-	threading.Thread(target=cached,args=()).start()
+	thread=threading.Thread(target=cached,args=())
+	thread.start()
 	while time.time() - start<timeout :
 		None
 	A=False

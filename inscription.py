@@ -21,9 +21,9 @@ def inscription():
         with socket.socket() as s:
             s.connect(serveraddress)
             try:
-                inscription={"request": "subscribe","port": port,"name":sys.argv[2],"matricules":["20004",sys.argv[3]]}
+                inscription={"request": "subscribe","port": port,"name":sys.argv[2],"matricules":["20004",port]}
             except:
-                inscription={"request": "subscribe","port": port,"name":'ptitbot{}'.format(random.random()),"matricules":["20004",str(random.random()*1000)]}
+                inscription={"request": "subscribe","port": port,"name":'ptitbot{}'.format(port),"matricules":["20004",str(random.random()*1000)]}
             message=json.dumps(inscription)
             s.send(message.encode())
             message=s.recv(2048).decode()

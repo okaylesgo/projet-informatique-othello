@@ -1,1 +1,2 @@
-# projet-informatique-othello
+# projet d'informatique Othello
+# 
