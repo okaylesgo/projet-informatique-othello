@@ -88,7 +88,7 @@ def heuristic(state,player=None):
 				res+=5
 		DELTAPION=len(state['board'][player2])-len(state['board'][player])
 		res=res+DELTAPION/5
-	if nombrepions>32:
+	if nombrepions>=32:
 		for elmt in LISTBORDS:
 			if elmt in state['board'][player]:
 				res+=1
@@ -148,15 +148,15 @@ def negamaxWithPruningIterativeDeepening(state, player, timeout=8.0):
 		nonlocal timeout
 		value, move, over = cachedNegamaxWithPruningLimitedDepth(state, player, depth)
 		depth += 1
-		if depth>64:
+		if depth>(64-(len(state['board'][1])+len(state['board'][0]))):
 			timeout=0
 		print('depth =', depth)
 	A=True
-	def cached():
+	def concurrence():
 		nonlocal A
 		while A==True:
 			not10sec(state)
-	thread=threading.Thread(target=cached,args=())
+	thread=threading.Thread(target=concurrence,args=())
 	thread.start()
 	while time.time() - start<timeout :
 		None
