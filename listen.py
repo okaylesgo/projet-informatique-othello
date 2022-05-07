@@ -10,6 +10,7 @@ with open('inscription.json') as mon_fichier:
     port=d['port']
 Addressplayer = ('0.0.0.0', port)
 serveraddress=('localhost',3000)
+#Cette fonction écoute puis répond directement au serveur selon la requête reçue.
 async def listen(): 
     with socket.socket() as s:
         s.settimeout(0.1)

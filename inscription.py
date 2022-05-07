@@ -6,9 +6,7 @@ try:
     port=int(sys.argv[1])
 except:
     port=(round(random.random()*10000))
-    if port<100:
-        port=port*100
-    elif port<1000:
+    while port<1000:
         port=port*10
     
 with open('inscription.json', 'w') as mon_fichier:

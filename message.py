@@ -1,3 +1,4 @@
+#Message envoyé selon l'état du jeu.
 def quelmessagejenvoie(state):
     player=state['current']
     if player==0:

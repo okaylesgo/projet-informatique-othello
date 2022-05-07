@@ -1,5 +1,6 @@
 import game
 import gameerror
+#IA de secours au cas où la deuxième IA a un souci.
 def IA(requete):
     a=requete['current']
     init,next=game.Othello(['monsieurH','MADAMEF']) 
