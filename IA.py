@@ -19,4 +19,8 @@ def IA(requete):
             ETAT=requete['board']
             if i not in ETAT[0] and ETAT[1]:
                 return i  
+        except gameerror.GameDraw:
+            ETAT=requete['board']
+            if i not in ETAT[0] and ETAT[1]:
+                return i
     return indice

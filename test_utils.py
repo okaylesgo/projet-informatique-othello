@@ -72,6 +72,14 @@ def test_IA2():
     assert IA2.IA2(state7) in game.possibleMoves(state7)
     state8={"players": ["LUR", "LRG"],"current": 1,"board": [[0,1,2,3,4,5,6,7,50,51,52,53,54,55,0,8,16,1,9,17,25,33,41,49,24,32,7,47,28,35],[27,36,15,23,31,39]]}
     assert IA2.heuristic(state8)
+    l5=[]
+    l6=[]
+    for i in range(32):
+        l5.append(i)
+    for j in range(32,62):
+        l6.append(j)
+    l5.append(62)
+    assert IA2.IA2( {'players': ['WO553§459302W', 'ptitbot8839'], 'current': 1, 'board': [l5, l6]})==63
     
    
     
