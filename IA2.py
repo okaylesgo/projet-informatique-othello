@@ -114,7 +114,7 @@ def heuristic(state,player=None):
 	return res			
 from collections import defaultdict
 init,next=Othello(['h','m'])
-def negamaxWithPruningIterativeDeepening(state, player, timeout=8.0):
+def negamaxWithPruningIterativeDeepening(state, player, timeout=4.0):
 	global start
 	start = time.time()
 	cache = defaultdict(lambda : 0)

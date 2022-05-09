@@ -22,7 +22,7 @@ async def listen():
                 client, address = s.accept()
                 with client:
                     message = client.recv(2048).decode() 
-                    requete=json.loads(message)                 
+                    requete=json.loads(message)             
                     if requete["request"]== "ping": 
                         message='{"response": "pong"}'
                         client.send(message.encode())

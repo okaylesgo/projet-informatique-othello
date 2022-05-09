@@ -30,6 +30,14 @@ def test_IA():
     l.remove(0)
     state={"layers": ["LUR", "LRG"],"current": 0,"board": [[0],l]}
     assert IA.IA(state)==63
+    l5=[]
+    l6=[]
+    for i in range(32):
+        l5.append(i)
+    for j in range(32,62):
+        l6.append(j)
+    l5.append(62)
+    assert IA.IA( {'players': ['WO553§459302W', 'ptitbot8839'], 'current': 1, 'board': [l5, l6]})==63
 def test_game():
     init,next=game.Othello(['f','h'])
     with pytest.raises(gameerror.BadMove):
