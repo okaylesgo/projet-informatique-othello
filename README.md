@@ -14,6 +14,3 @@ L'heuristic possède plusieurs stratègies et donnera une valeur à chacun des �
 - Si le nombre de pions joués sur le plateau est plus haut que(ou égal à) 32, l'état augmente si le nombre de cotés pris par Mr.A augmente mais aussi si le nombre de pions autour de ces cotés  pris par celui-ci augmente . Bien évidemment, l'état diminuera si c'est Mr.B qui possède tout cela.
 
 Il est important de savoir que nous utilisons des threads pour laisser à notre IA un temps limité le plus grand possible  et ainsi être sûr que après ce temps, l'IA renvoie la dernière valeur obtenue. Nous voulons avoir un temps le plus grand possible pour ainsi avoir une profondeur maximale et donc avoir un état du jeu qui permettra à l'IA de gagner le plus sûr.
-
-
-C'est trois fonctions ne sont pas les seules utilisées, par exemple, nous avons toutes la partie réseau qui appelle plusieurs fonctions. Notamment, la fonction listen qui écoute le serveur et  lui envoie une réponse selon sa requête.
