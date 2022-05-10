@@ -108,9 +108,7 @@ def heuristic(state,player=None):
 								lelemnext.append((el2,el))
 							elif elmt in state['board'][player2] and el2 in state['board'][player2]:
 								res-=0.5
-								lelemnext.append((el2,el))
-		res=res-0.2*len(state['board'][player2])
-		res=res+0.2*len(state['board'][player2])		
+								lelemnext.append((el2,el))	
 	return res			
 from collections import defaultdict
 init,next=Othello(['h','m'])
