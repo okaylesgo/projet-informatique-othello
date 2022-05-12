@@ -1,4 +1,5 @@
 # projet d'informatique Othello, Ali et Helder
+## Description
 Ce projet consiste à créer une IA jouant à Othello de la manière la plus optimale et intelligente possible. L'IA que nous avons créée se repose sur 3 fonctions principales:
 - la fonction heuristic
 - negamaxWithPruningIterativeDeepening
@@ -14,3 +15,9 @@ L'heuristic possède plusieurs stratègies et donnera une valeur à chacun des �
 - Si le nombre de pions joués sur le plateau est plus haut que(ou égal à) 32, l'état augmente si le nombre de cotés pris par Mr.A augmente mais aussi si le nombre de pions autour de ces cotés  pris par celui-ci augmente . Bien évidemment, l'état diminuera si c'est Mr.B qui possède tout cela.
 
 Il est important de savoir que nous utilisons des threads pour laisser à notre IA un temps limité le plus grand possible  et ainsi être sûr que après ce temps, l'IA renvoie la dernière valeur obtenue. Nous voulons avoir un temps le plus grand possible pour ainsi avoir une profondeur maximale selon le temps donné et donc avoir un état du jeu qui permettra à l'IA d'avoir le maximum de chances de gagner.
+## Comment lancer mon IA
+-Lancer le programme lancement.py: si vous ne mettez rien dans le terminal lors du lancement du programme, le port de l'IA sera aléatoire et son nom sera:'ptitbot' accompagné de son port.
+Si vous voulez choisir le port de votre IA ainsi que son nom et même son matricule, il suffit de lancer le programme lancement.py accompagné :
+- En premier,du port que voulez. 
+- En deuxième, de son nom.
+Exemple: python lancement.py 2222 ALIHELDER 
