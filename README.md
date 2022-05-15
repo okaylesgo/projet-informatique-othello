@@ -4,7 +4,7 @@
 Si vous voulez choisir le port de votre IA ainsi que son nom , il suffit de lancer le programme lancement.py dans le terminal accompagné :
 - En premier,du port que voulez. 
 - En deuxième, de son nom.
-Exemple: python lancement.py 2222 ALIHELDER 
+Exemple: python lancement.py 2222 ALIHELDER (2222 et ALIHELDER sont récupérables par sys.argv)
 
 ## Description
 Ce projet consiste à créer une IA jouant à Othello de la manière la plus optimale et intelligente possible. L'IA que nous avons créée se repose sur 3 fonctions principales:
