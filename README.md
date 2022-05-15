@@ -1,5 +1,5 @@
 # projet d'informatique Othello, Ali et Helder
-## Comment lancer mon IA
+## Comment lancer notre IA
 -Lancer le programme lancement.py: si vous ne mettez rien dans le terminal lors du lancement du programme, le port de l'IA sera aléatoire et son nom sera:'ptitbot' accompagné de son port.
 Si vous voulez choisir le port de votre IA ainsi que son nom , il suffit de lancer le programme lancement.py dans le terminal accompagné :
 - En premier,du port que voulez. 
